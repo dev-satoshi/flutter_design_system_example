@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    name: Lint & Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # - name: SSH Setting
+      #   env:
+      #     TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: |
+      #     mkdir -p /home/runner/.ssh/
+      #     echo -e "$TOKEN" > /home/runner/.ssh/id_rsa
+      #     chmod 600 /home/runner/.ssh/id_rsa
+
+      # - name: Sync & update submodules
+      #   shell: bash
+      #   run: |
+      #     git submodule sync --recursive
+      #     git submodule update --init --force --recursive
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.41.4"
+          channel: "stable"
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Remove unused imports
+        run: |
+          dart fix --apply --code=unused_import lib
+          dart fix --apply --code=unused_import test
+          git diff --exit-code
+
+      # - name: Sort imports
+      #   run: |
+      #     flutter pub run import_sorter:main
+      #     git diff --exit-code
+
+      - name: Format Dart
+        run: |
+          dart format lib test
+          git diff --exit-code
+
+      # - name: Generate code
+      #   run: |
+      #     flutter pub run build_runner build --delete-conflicting-outputs
+      #     git diff --exit-code
+
+      - name: Flutter analyze
+        run: flutter analyze
+
+      # - name: Run tests with coverage
+      #   run: flutter test --coverage

@@ -1,0 +1,45 @@
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  exclude:
+    - "**/build/**"
+    - "**/generated_*.dart"
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "**/*.gr.dart"
+    - "**/l10n*.dart"
+    - "**/*.gen.dart"
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at https://dart.dev/lints.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+    eol_at_end_of_file: true # ファイル末尾に改行を強制
+    avoid_print: true # printを禁止してdebugPrint等を推奨
+    prefer_single_quotes: true # シングルクオートを優先
+    unawaited_futures: true # 未awaitのFutureを警告
+    use_build_context_synchronously: true # ビルドコンテキストの同期使用を警告
+    cancel_subscriptions: true # StreamSubscriptionの解放忘れを警告
+    prefer_const_constructors: true # 定数コンストラクタを優先
+    always_put_required_named_parameters_first: false # 必須の名前付きパラメータを先頭に
+    public_member_api_docs: false # 公開メンバーにドキュメント不要
+    no_default_cases: false # デフォルトケースの使用を許可
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options

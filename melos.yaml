@@ -1,0 +1,5 @@
+name: flutter_design_system_example
+repository: https://github.com/dev-satoshi/flutter_design_system_example
+packages:
+  - apps/**
+  - packages/**

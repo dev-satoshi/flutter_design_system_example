@@ -7,6 +7,16 @@ jobs:
   build:
     name: Lint & Test
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        project:
+          - apps/app
+          - apps/widgetbook
+          - packages/design_system
+    defaults:
+      run:
+        working-directory: ${{ matrix.project }}
 
     steps:
       - name: Checkout Repository
